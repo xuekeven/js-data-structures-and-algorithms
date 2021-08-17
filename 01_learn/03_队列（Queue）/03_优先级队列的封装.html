@@ -1,116 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>优先级队列的封装</title>
+  <meta charset="UTF-8">
+  <title>优先级队列的封装</title>
 </head>
 <body>
 <script>
 
-    class Queue {
-        //构造函数
-        constructor() {
-            //队列的属性
-            this.items = [];
-        }
-
-        //原型方法：队列的相关操作
-        //1.让元素进入队列
-        enqueue(element) {
-            this.items.push(element);
-        }
-
-        //2.从队列中取出元素并返回
-        dequeue() {
-            return this.items.shift();
-        }
-
-        //3.查看队列最先出去元素
-        front() {
-            return this.items[0];
-        }
-
-
-        //4.判断队列是否为空
-        isEmpty() {
-            return this.items.length === 0;
-        }
-
-        //5.获取队列元素个数
-        size () {
-            return this.items.length;
-        }
-
-        //6.toString()方法
-        toString() {
-            let resultString = '';
-            for (let i = 0; i < this.items.length; i++) {
-                resultString += this.items[i] + ' ';
-            }
-            return resultString;
-        }
-
+  class Queue {
+    //构造函数
+    constructor() {
+      //队列的属性
+      this.items = [];
     }
 
-    class QueueElement {
-        constructor(element,priority) {
-            this.element = element;
-            this.priority = priority;
-        }
+    //原型方法：队列的相关操作
+    //1.让元素进入队列
+    enqueue(element) {
+      this.items.push(element);
     }
 
-    class PriorityQueue extends Queue {
-
-        constructor() {
-            super();
-        }
-
-        //重写enqueue方法
-        enqueue(element,priority) {
-            let queueElement = new QueueElement(element,priority);
-
-            if (this.isEmpty()) {
-                this.items.push(queueElement);
-            } else {
-
-                //设置检测是否插入了的信号
-                let added = false;
-                for (let i = 0;i < this.items.length; i++) {
-                    if (queueElement.priority < this.items[i].priority) {
-                        this.items.splice(i, 0, queueElement);
-
-                        //插入后改变信号
-                        added = true;
-                        break;
-                    }
-                }
-                //优先级最小的插入
-                if (!added) {
-                    this.items.push(queueElement);
-                }
-            }
-        }
-
-        //重写toString()方法
-        toString() {
-            let result = ' ';
-            for ( let item of this.items) {
-                result += item.element + '-' + item.priority + ' ';
-            }
-            return result
-        }
+    //2.从队列中取出元素并返回
+    dequeue() {
+      return this.items.shift();
     }
 
-    const priortyQueue = new PriorityQueue();
-    priortyQueue.enqueue('a',10);
-    priortyQueue.enqueue('b',20);
-    priortyQueue.enqueue('c',5);
-    priortyQueue.enqueue('d',30);
-    priortyQueue.enqueue('e',25);
-    priortyQueue.dequeue()
+    //3.查看队列最先出去元素
+    front() {
+      return this.items[0];
+    }
 
-    alert(priortyQueue.items);
-    alert(priortyQueue.toString());
+
+    //4.判断队列是否为空
+    isEmpty() {
+      return this.items.length === 0;
+    }
+
+    //5.获取队列元素个数
+    size () {
+      return this.items.length;
+    }
+
+    //6.将队列结构的内容以字符串的形式返回
+    toString() {
+      let resultString = '';
+      for (let item of this.items) {
+        resultString += item + ' ';
+      }
+      return resultString;
+    }
+  }
+
+  // 优先队列内部的元素类
+  class QueueElement {
+    constructor(element, priority) {
+      this.element = element;
+      this.priority = priority;
+    }
+  }
+
+  class PriorityQueue extends Queue {
+
+    constructor() {
+      super();
+    }
+
+    //重写enqueue方法
+    enqueue(element, priority) {
+      let queueElement = new QueueElement(element, priority);
+
+      if (this.isEmpty()) {
+        this.items.push(queueElement);
+      } else {
+        //设置一个变量来记录是否成功添加了新元素
+        let added = false;
+        for (let i = 0; i < this.items.length; i++) {
+          if (queueElement.priority < this.items[i].priority) {
+            this.items.splice(i, 0, queueElement);
+            //插入后改变信号
+            added = true;
+            break;
+          }
+        }
+        //优先级最小的插入
+        if (!added) {
+          this.items.push(queueElement);
+        }
+      }
+    }
+
+    //重写toString()方法
+    toString() {
+      let result = ' ';
+      for ( let item of this.items) {
+        result += item.element + '-' + item.priority + ' ';
+      }
+      return result
+    }
+  }
+
+  const priortyQueue = new PriorityQueue();
+  priortyQueue.enqueue('a',20);
+  priortyQueue.enqueue('b',10);
+  priortyQueue.enqueue('c',5);
+  priortyQueue.enqueue('d',30);
+  priortyQueue.enqueue('e',25);
+  priortyQueue.dequeue()
+
+  alert(priortyQueue.items);
+  alert(priortyQueue.toString());
 
 </script>
 </body>

@@ -1,81 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>击鼓传花</title>
+  <meta charset="UTF-8">
+  <title>击鼓传花</title>
 </head>
 <body>
 <script>
 
-    class Queue {
-        //构造函数
-        constructor() {
-            //队列的属性
-            this.items = [];
-        }
-
-        //原型方法：队列的相关操作
-        //1.让元素进入队列
-        enqueue(element) {
-            this.items.push(element);
-        }
-
-        //2.从队列中取出元素并返回
-        dequeue() {
-            return this.items.shift();
-        }
-
-        //3.查看队列最先出去元素
-        front() {
-            return this.items[0];
-        }
-
-
-        //4.判断队列是否为空
-        isEmpty() {
-            return this.items.length === 0;
-        }
-
-        //5.获取队列元素个数
-        size () {
-            return this.items.length;
-        }
-
-        //6.toString()方法
-        toString() {
-            let resultString = '';
-            for (let i = 0; i < this.items.length; i++) {
-                resultString += this.items[i] + ' ';
-            }
-            return resultString;
-        }
-
+  class Queue {
+    //构造函数
+    constructor() {
+      //队列的属性
+      this.items = [];
     }
 
-    function passGame(nameList,number) {
-        const queue = new Queue();
-
-        for (let i = 0; i < nameList.length; i++) {
-            queue.enqueue(nameList[i]);
-        }
-
-        while (queue.size() > 1) {
-            for (let i = 0; i < number - 1; i++) {
-                queue.enqueue(queue.dequeue());
-            }
-            queue.dequeue();
-        }
-
-        alert(queue.size());
-        const endName = queue.front();
-        alert(`最后剩下的人：${queue.front()}`);
-
-        return nameList.indexOf(queue.front());
+    //原型方法：队列的相关操作
+    //1.让元素进入队列
+    enqueue(element) {
+      this.items.push(element);
     }
 
-    names = ['li','zhang','han','xue','zai'];
-    alert(passGame(names,3));
+    //2.从队列中取出元素并返回
+    dequeue() {
+      return this.items.shift();
+    }
 
+    //3.查看队列最先出去元素
+    front() {
+      return this.items[0];
+    }
+
+
+    //4.判断队列是否为空
+    isEmpty() {
+      return this.items.length === 0;
+    }
+
+    //5.获取队列元素个数
+    size () {
+      return this.items.length;
+    }
+
+    //6.将队列结构的内容以字符串的形式返回
+    toString() {
+      let resultString = '';
+      for (let item of this.items) {
+        resultString += item + ' ';
+      }
+      return resultString;
+    }
+  }
+
+  function passGame(nameList, number) {
+    // 1、new 一个 Queue 对象
+    const queue = new Queue();
+    // 2、将 nameList 里面的每一个元素入队
+    for (const name of nameList) {
+      queue.enqueue(name);
+    }
+    // 3、开始数数
+    while (queue.size() > 1) {
+      for (let i = 0; i < number - 1; i++) {
+        queue.enqueue(queue.dequeue());
+      }
+      queue.dequeue();
+    }
+    // 4、获取最后剩下的那个人
+    const endName = queue.front();
+    alert(`最后剩下的人：${queue.front()}`);
+    // 5、返回这个人在原数组中对应的索引
+    return nameList.indexOf(queue.front());
+  }
+
+  names = ['li','zhang','han','xue','zai'];
+  alert(passGame(names,3));
 </script>
 </body>
 </html>

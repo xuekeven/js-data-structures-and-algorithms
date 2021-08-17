@@ -1,139 +1,123 @@
 <!DOCTYPE html>
-
 <html lang="zn-CN">
-
 <head>
-
-    <meta charset="UTF-8">
-    <title>集合间操作</title>
-
+  <meta charset="UTF-8">
+  <title>集合间操作</title>
 </head>
-
 <body>
-
 <script>
 
-    class Set {
-        constructor() {
-            this.items = {};
-        }
-
-        add(value) {
-            if (this.has(value)) return false
-
-            this.items[value] = value;
-            return true;
-        }
-
-        has(value) {
-            return this.items.hasOwnProperty(value);
-        }
-
-        remove(value) {
-            if (!this.has(value)) return false
-            delete this.items[value];
-            return true;
-        }
-
-        clear() {
-            this.items = {};
-
-        }
-
-        size() {
-            return Object.keys(this.items).length;
-        }
-
-        values() {
-            return Object.keys(this.items);
-        }
-
-        //并集
-        union(otherSet) {
-
-            const unionSet = new Set();
-
-            let values = this.values();
-            for (let i = 0; i < values.length; i++) {
-                unionSet.add(values[i])
-            }
-
-            values = otherSet.values();
-            for (let i = 0; i < values.length; i++) {
-                unionSet.add(values[i])
-            }
-
-            return unionSet;
-        }
-
-        //交集
-
-        intersection(otherSet) {
-            const intersectionSet = new Set();
-            const values = this.values();
-
-            for (let i = 0; i < values.length; i++) {
-                let item = values[i];
-                if (otherSet.has(item)) {
-                    intersectionSet.add(item);
-                }
-            }
-            return intersectionSet;
-        }
-
-        //差集
-        different(otherSet) {
-
-            const differentSet = new Set();
-            const values = this.values();
-
-            for (let i = 0; i < values.length; i++) {
-                let item = values[i];
-                if (!otherSet.has(item)) {
-                    differentSet.add(item);
-                }
-            }
-            return differentSet;
-        }
-
-        //子集
-        subset(otherSet) {
-            let values = this.values();
-
-            for (let i = 0; i < values.length; i++) {
-                let item = values[i];
-                if (!otherSet.has(item)) {
-                    return false;
-                }
-            }
-            return true;
-        }
+  class Set {
+    constructor() {
+      this.items = {};
     }
 
-    //测试
-    const seta = new Set();
-    seta.add('a');
-    seta.add('b');
-    seta.add('c');
-    seta.add('d');
-    seta.add('w');
-    const setb = new Set();
-    setb.add('aa');
-    setb.add('b');
-    setb.add('cc');
-    setb.add('dd');
-    setb.add('w');
+    add(value) {
+      if (this.has(value)) return false
 
-    const unionSet = seta.union(setb);
-    alert(unionSet.values());
+      this.items[value] = value;
+      return true;
+    }
 
-    const intersectionSet = seta.intersection(setb);
-    alert(intersectionSet.values());
+    has(value) {
+      return this.items.hasOwnProperty(value);
+    }
 
-    const differentSet = seta.different(setb);
-    alert(differentSet.values());
+    remove(value) {
+      if (!this.has(value)) return false
+      delete this.items[value];
+      return true;
+    }
 
-    alert(seta.subset(setb));
+    clear() {
+      this.items = {};
+
+    }
+
+    size() {
+      return Object.keys(this.items).length;
+    }
+
+    values() {
+      return Object.keys(this.items);
+    }
+
+    //并集
+    union(otherSet) {
+      const unionSet = new Set();
+      let values = this.values();
+      for (let i = 0; i < values.length; i++) {
+        unionSet.add(values[i])
+      }
+      values = otherSet.values();
+      for (let i = 0; i < values.length; i++) {
+        unionSet.add(values[i])
+      }
+      return unionSet;
+    }
+
+    //交集
+    intersection(otherSet) {
+      const intersectionSet = new Set();
+      const values = this.values();
+      for (let i = 0; i < values.length; i++) {
+        let item = values[i];
+        if (otherSet.has(item)) {
+          intersectionSet.add(item);
+        }
+      }
+      return intersectionSet;
+    }
+
+    //差集
+    different(otherSet) {
+      const differentSet = new Set();
+      const values = this.values();
+      for (let i = 0; i < values.length; i++) {
+        let item = values[i];
+        if (!otherSet.has(item)) {
+          differentSet.add(item);
+        }
+      }
+      return differentSet;
+    }
+
+    //子集
+    subset(otherSet) {
+      let values = this.values();
+      for (let i = 0; i < values.length; i++) {
+        let item = values[i];
+        if (!otherSet.has(item)) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  //测试
+  const seta = new Set();
+  seta.add('a');
+  seta.add('b');
+  seta.add('c');
+  seta.add('d');
+  seta.add('w');
+  const setb = new Set();
+  setb.add('aa');
+  setb.add('b');
+  setb.add('cc');
+  setb.add('dd');
+  setb.add('w');
+
+  const unionSet = seta.union(setb);
+  alert(unionSet.values());
+
+  const intersectionSet = seta.intersection(setb);
+  alert(intersectionSet.values());
+
+  const differentSet = seta.different(setb);
+  alert(differentSet.values());
+
+  alert(seta.subset(setb));
 
 </script>
 

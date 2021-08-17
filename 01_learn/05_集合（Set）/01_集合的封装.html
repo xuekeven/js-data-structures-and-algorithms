@@ -1,74 +1,65 @@
 <!DOCTYPE html>
-
 <html lang="zn-CN">
-
 <head>
-
-    <meta charset="UTF-8">
-    <title>集合的封装</title>
-
+  <meta charset="UTF-8">
+  <title>集合的封装</title>
 </head>
-
 <body>
-
 <script>
 
-    class Set {
-        constructor() {
-            this.items = {};
-        }
-
-        add(value) {
-            if (this.has(value)) return false
-
-            this.items[value] = value;
-            return true;
-        }
-
-        has(value) {
-            return this.items.hasOwnProperty(value);
-        }
-
-        remove(value) {
-            if (!this.has(value)) return false
-            delete this.items[value];
-            return true;
-        }
-
-        clear() {
-            this.items = {};
-
-        }
-
-        size() {
-            return Object.keys(this.items).length;
-        }
-
-        values() {
-            return Object.keys(this.items);
-        }
+  class Set {
+    constructor() {
+      this.items = {};
     }
 
-    //测试
-    let set = new Set();
-    alert(set.add('abc'));
-    alert(set.add('abc'));
-    alert(set.add('cba'));
-    alert(set.add('nba'));
-    alert(set.add('mba'));
-    alert(set.values());
+    add(value) {
+      if (this.has(value)) return false
+      this.items[value] = value;
+      return true;
+    }
 
-    alert(set.remove('mba'));
-    alert(set.remove('mba'));
-    alert(set.values());
+    has(value) {
+      return this.items.hasOwnProperty(value);
+    }
 
-    alert(set.size());
+    remove(value) {
+      if (!this.has(value)) return false
+      delete this.items[value];
+      return true;
+    }
 
-    set.clear();
-    alert(set.values());
-    alert(set.size());
+    clear() {
+      this.items = {};
 
+    }
 
+    size() {
+      return Object.keys(this.items).length;
+    }
+
+    values() {
+      return Object.keys(this.items);
+    }
+  }
+
+  //测试
+  let set = new Set();
+  alert(set.add('abc'));
+  alert(set.add('abc'));
+  alert(set.add('cba'));
+  alert(set.add('nba'));
+  alert(set.add('mba'));
+  alert(set.values());
+
+  alert(set.remove('mba'));
+  alert(set.remove('mba'));
+  alert(set.values());
+
+  alert(set.size());
+
+  set.clear();
+  alert(set.values());
+  alert(set.size());
 </script>
 
 </body>

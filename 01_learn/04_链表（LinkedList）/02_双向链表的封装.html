@@ -1,293 +1,259 @@
 <!DOCTYPE html>
-
 <html lang="zn-CN">
-
 <head>
-
-    <meta charset="UTF-8">
-    <title>双向链表的封装</title>
-
+  <meta charset="UTF-8">
+  <title>双向链表的封装</title>
 </head>
-
 <body>
-
 <script>
 
-    //添加新节点
-    class Node {
-        constructor(data) {
-            this.data = data;
-            this.next = null;
-            this.prev = null;
-        }
+  //添加新节点
+  class Node {
+    constructor(data) {
+      this.data = data;
+      this.next = null;
+      this.prev = null;
+    }
+  }
+
+  //封装双向链表
+  class DoublyLinkedList {
+    constructor() {
+      this.head = null;
+      this.tail = null;
+      this.length = 0;
     }
 
-    //封装双向链表
-    class DoublyLinkedList {
-        constructor() {
-            this.head = null;
-            this.tail = null;
-            this.length = 0;
-        }
-
-        //1.在末尾加数据
-        append(data) {
-            const newNode = new Node(data);
-
-            if (this.length === 0) {
-                this.head = newNode;
-                this.tail = newNode;
-            } else {
-                this.tail.next = newNode;
-                newNode.prev = this.tail;
-                this.tail = newNode;
-            }
-
-            this.length++;
-            return true;
-        }
-
-        //2.将链表转为字符串形式
-        toString() {
-            return this.backwardString();
-        }
-
-        forwardString() {
-
-            let current = this.tail;
-            let resultString = '';
-
-            while (current) {
-                resultString += current.data + ' ';
-                current = current.prev;
-            }
-
-            return resultString;
-
-        }
-
-        backwardString() {
-
-            let current = this.head;
-            let resultString = '';
-
-            while (current) {
-                resultString += current.data + ' ';
-                current = current.next;
-            }
-
-            return resultString;
-        }
-
-        //3.在某位置插入数据
-        insert(position,data) {
-            //对position进行边界判断，最多到队列最后一个后再新加
-            if (position < 0 || position > this.length) return false;
-
-            //创建新节点
-            const newNode = new Node(data);
-
-            //判断加入位置
-            if (this.length === 0) {
-                this.head = newNode;
-                this.tail = newNode;
-            } else {
-
-                let current = this.head;
-
-                if (position === 0) {
-                    current.prev = newNode;
-                    newNode.next = current;
-                    this.head = newNode;
-                } else if (position === this.length) {
-                    current = this.tail;
-                    current.next = newNode;
-                    newNode.prev = current;
-                    this.tail = newNode;
-                } else {
-
-                    if (position <= this.length / 2) {
-                        for (let index = 0; index < position; index++) {
-                            current = current.next;
-                        }
-                    } else {
-                        current = this.tail;
-                        for (let index = this.length - 1; index > position; index--) {
-                            current = current.prev;
-                        }
-                    }
-                    newNode.next = current;
-                    newNode.prev = current.prev;
-                    current.prev.next = newNode;
-                    current.prev = newNode;
-                }
-            }
-
-            //长度加1
-            this.length++;
-            return true;
-        }
-
-        //4.获取某个位置的数据
-        get(position) {
-            if (position < 0 || position >= this.length) return null
-
-            let current = this.head;
-
-            if (this.length / 2 >= position) {
-                for (let index = 0; index < position; index++) {
-                    current = current.next;
-                }
-            } else {
-                current = this.tail;
-                for (let index = this.length - 1; index > position; index--) {
-                    current = current.prev;
-                }
-            }
-
-            return current.data;
-        }
-
-        //5.查找数据对应位置
-        indexOf(data) {
-
-            let current = this.head;
-
-            for (let index = 0; index < this.length; index++) {
-                if (data === current.data) {
-                    return index;
-                } else {
-                    current = current.next;
-                }
-            }
-            return -1;
-        }
-
-        //6.更新某个位置的数据
-        update(position, data) {
-            //对position进行边界判断，最多到队列最后一个
-            if (position < 0 || position >= this.length) return false
-
-            let current= this.head;
-
-            if (this.length / 2 >= position) {
-                for (let index = 0; index < position; index++) {
-                    current = current.next;
-                }
-            } else {
-                current = this.tail;
-                for (let index = this.length - 1; index < position; index--) {
-                    current = current.prev;
-                }
-            }
-
-            current.data = data;
-            return true;
-        }
-
-        //7.移除特定位置的数据
-        removeAt(position) {
-            if (position < 0 || position >= this.length) return false
-
-            let current = this.head;
-
-            if (this.length === 1) {
-                this.head = null;
-                this.tail = null;
-            } else {
-
-                if (position === 0) {
-                    current.next.prev = null;
-                    this.head = current.next;
-                } else if (position === this.length - 1) {
-                    current = this.tail;
-                    current.prev.next = null;
-                    this.tail = current.prev;
-                } else {
-
-                    if (position <= this.length / 2) {
-                        for (let index = 0; index < position; index++) {
-                            current = current.next;
-                        }
-                    } else {
-                        current = this.tail;
-                        for (let index = this.length - 1; index > position; index--) {
-                            current = current.prev;
-                        }
-                    }
-
-                    current.next.prev = current.prev;
-                    current.prev.next = current.next;
-                }
-            }
-
-            this.length--;
-            return current.data;
-        }
-
-        //8.移除给定的数据
-        remove(data) {
-            const position = this.indexOf(data);
-            return this.removeAt(position);
-        }
-
-        //9.判断链表是否为空
-        isEmpty() {
-            return this.length === 0;
-        }
-
-        //10.返回链表数据个数
-        size() {
-            return this.length;
-        }
-
-        //11.返回链表第一个数据
-        getHead() {
-            return this.head.data;
-        }
-
-        //11.返回链表最后一个数据
-        getTail() {
-            return this.tail.data;
-        }
-
+    //1.在末尾加数据
+    append(data) {
+      const newNode = new Node(data);
+      if (this.length === 0) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.tail.next = newNode;
+        newNode.prev = this.tail;
+        this.tail = newNode;
+      }
+      this.length++;
+      return true;
     }
 
-    //测试
-    const list = new DoublyLinkedList();
-    list.append('abc');
-    list.append('cba');
-    list.append('nba');
+    //2.将链表转为字符串形式
+    toString() {
+      return this.backwardString();
+    }
 
-    alert(list);   // abc cba nba
-    alert(list.backwardString());   // abc cba nba
-    alert(list.forwardString());   // nba cba abc
+    // 链表数据从后往前以字符串形式返回
+    forwardString() {
+      let current = this.tail;
+      let resultString = '';
+      while (current) {
+        resultString += current.data + ' ';
+        current = current.prev;
+      }
+      return resultString;
+    }
 
-    list.insert(0,'000');
-    list.insert(4,'dna');
-    list.insert(2,'222');
-    alert(list);   // 000 abc 222 cba nba dna
+    // 链表数据从前往后以字符串形式返回
+    backwardString() {
+      let current = this.head;
+      let resultString = '';
+      while (current) {
+        resultString += current.data + ' ';
+        current = current.next;
+      }
+      return resultString;
+    }
 
-    alert(list.get(1));   // abc
+    //3.在某位置插入数据
+    insert(position, data) {
+      //对position进行边界判断，最多到队列最后一个后再新加
+      if (position < 0 || position > this.length) return false;
+      //创建新节点
+      const newNode = new Node(data);
+      //判断加入位置
+      if (this.length === 0) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        let current = this.head;
+        if (position === 0) {
+          current.prev = newNode;
+          newNode.next = current;
+          this.head = newNode;
+        } else if (position === this.length) {
+          current = this.tail;
+          current.next = newNode;
+          newNode.prev = current;
+          this.tail = newNode;
+        } else {
+          if (position <= this.length / 2) {
+            for (let index = 0; index < position; index++) {
+              current = current.next;
+            }
+          } else {
+            current = this.tail;
+            for (let index = this.length - 1; index > position; index--) {
+              current = current.prev;
+            }
+          }
+          newNode.next = current;
+          newNode.prev = current.prev;
+          current.prev.next = newNode;
+          current.prev = newNode;
+        }
+      }
+      //长度加1
+      this.length++;
+      return true;
+    }
 
-    alert(list.indexOf('cba'));   // 3
+    //4.获取某个位置的数据
+    get(position) {
+      if (position < 0 || position >= this.length) return null
+      let current = this.head;
+      if (this.length / 2 >= position) {
+        for (let index = 0; index < position; index++) {
+          current = current.next;
+        }
+      } else {
+        current = this.tail;
+        for (let index = this.length - 1; index > position; index--) {
+          current = current.prev;
+        }
+      }
+      return current.data;
+    }
 
-    alert(list.update(1,'111'));   // true
-    alert(list);   // 000 111 222 cba nba dna
+    //5.查找数据对应位置
+    indexOf(data) {
+      let current = this.head;
+      for (let index = 0; index < this.length; index++) {
+        if (data === current.data) {
+          return index;
+        } else {
+          current = current.next;
+        }
+      }
+      return -1;
+    }
 
-    alert(list.removeAt(2));   // 222
-    alert(list);   // 000 111 cba nba dna
+    //6.更新某个位置的数据
+    update(position, data) {
+      //对position进行边界判断，最多到队列最后一个
+      if (position < 0 || position >= this.length) return false
+      let current= this.head;
+      if (this.length / 2 >= position) {
+        for (let index = 0; index < position; index++) {
+          current = current.next;
+        }
+      } else {
+        current = this.tail;
+        for (let index = this.length - 1; index < position; index--) {
+          current = current.prev;
+        }
+      }
+      current.data = data;
+      return true;
+    }
 
-    alert(list.remove('abc'));   // false
-    alert(list);   // 000 111 cba nba dna
+    //7.移除特定位置的数据
+    removeAt(position) {
+      if (position < 0 || position >= this.length) return false
+      let current = this.head;
+      if (this.length === 1) {
+        this.head = null;
+        this.tail = null;
+      } else {
+        if (position === 0) {
+          current.next.prev = null;
+          this.head = current.next;
+        } else if (position === this.length - 1) {
+          current = this.tail;
+          current.prev.next = null;
+          this.tail = current.prev;
+        } else {
+          if (position <= this.length / 2) {
+            for (let index = 0; index < position; index++) {
+              current = current.next;
+            }
+          } else {
+            current = this.tail;
+            for (let index = this.length - 1; index > position; index--) {
+              current = current.prev;
+            }
+          }
+          current.next.prev = current.prev;
+          current.prev.next = current.next;
+        }
+      }
+      this.length--;
+      return current.data;
+    }
 
-    alert(list.isEmpty());   // false
+    //8.移除给定的数据
+    remove(data) {
+      const position = this.indexOf(data);
+      return this.removeAt(position);
+    }
 
-    alert(list.size());   // 5
+    //9.判断链表是否为空
+    isEmpty() {
+      return this.length === 0;
+    }
 
-    alert(list.getHead());   // 000
+    //10.返回链表数据个数
+    size() {
+      return this.length;
+    }
 
-    alert(list.getTail());   // dna
+    //11.返回链表第一个数据
+    getHead() {
+      return this.head.data;
+    }
+
+    //11.返回链表最后一个数据
+    getTail() {
+      return this.tail.data;
+    }
+  }
+
+  //测试
+  const list = new DoublyLinkedList();
+  list.append('abc');
+  list.append('cba');
+  list.append('nba');
+
+  alert(list);   // abc cba nba
+  alert(list.backwardString());   // abc cba nba
+  alert(list.forwardString());   // nba cba abc
+
+  list.insert(0,'000');
+  list.insert(4,'dna');
+  list.insert(2,'222');
+  alert(list);   // 000 abc 222 cba nba dna
+
+  alert(list.get(1));   // abc
+
+  alert(list.indexOf('cba'));   // 3
+
+  alert(list.update(1,'111'));   // true
+  alert(list);   // 000 111 222 cba nba dna
+
+  alert(list.removeAt(2));   // 222
+  alert(list);   // 000 111 cba nba dna
+
+  alert(list.remove('abc'));   // false
+  alert(list);   // 000 111 cba nba dna
+
+  alert(list.isEmpty());   // false
+
+  alert(list.size());   // 5
+
+  alert(list.getHead());   // 000
+
+  alert(list.getTail());   // dna
 
 </script>
 

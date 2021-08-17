@@ -1,80 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>十进制转二进制</title>
+  <meta charset="UTF-8">
+  <title>十进制转二进制</title>
 </head>
 <body>
 <div class="number" >
-    <form class="change">
-        <fieldset class="decTobin">
-            <legend>Give a Dec to Bin.</legend>
-            <input id="decTobin" type="text">
-        </fieldset>
-    </form>
+  <form class="change">
+    <fieldset class="decTobin">
+      <legend>Give a Dec to Bin.</legend>
+      <input id="decTobin" type="text">
+    </fieldset>
+  </form>
 </div>
 
 <script>
 
-    class Stack {
-        //构造函数
-        constructor() {
-            //栈的属性
-            this.items = [];
-        }
-        //原型方法，栈的相关操作
-        //1.将元素压入到栈
-        push(element) {
-            this.items.push(element);
-        }
-
-        //2.从栈中取出元素
-        pop() {
-            return this.items.pop();
-        }
-
-        //3.查看栈顶元素
-        peak() {
-            return this.items[this.items.length - 1];
-        }
-
-        //4.判断栈是否为空
-        isEmpty() {
-            return this.items.length === 0;
-        }
-
-        //5.获取栈元素个数
-        size() {
-            return this.items.length;
-        }
-
-        //6.toString()方法
-        toString() {
-            //20 10 12 8 7
-            let resultString = '';
-            for (let i = 0; i < this.items.length; i++) {
-                resultString += this.items[i] + ' '
-            }
-            return resultString;
-        }
-
+  class Stack {
+    //构造函数
+    constructor() {
+      //栈的属性
+      this.items = [];
+    }
+    //原型方法，栈的相关操作
+    //1.将元素压入到栈
+    push(element) {
+      this.items.push(element);
     }
 
-    function decTobin(decNumber) {
-        const stack = new Stack();
-        while (decNumber > 0) {
-            stack.push(decNumber % 2);
-            decNumber = Math.floor(decNumber / 2);
-        }
-        let result = '';
-        while (!stack.isEmpty()) {
-            result += stack.pop()
-        }
-        return result;
+    //2.从栈中取出元素
+    pop() {
+      return this.items.pop();
     }
 
-    alert(decTobin(100));
+    //3.查看栈顶元素
+    peak() {
+      return this.items[this.items.length - 1];
+    }
 
+    //4.判断栈是否为空
+    isEmpty() {
+      return this.items.length === 0;
+    }
+
+    //5.获取栈元素个数
+    size() {
+      return this.items.length;
+    }
+
+    //6.将栈结构的内容以字符串的形式返回
+    toString() {
+      let resultString = '';
+      for (let item of this.items) {
+        resultString += item + ' '
+      }
+      return resultString;
+    }
+  }
+
+  function decTobin(decNumber) {
+    const stack = new Stack();
+    while (decNumber > 0) {
+      stack.push(decNumber % 2);
+      decNumber = Math.floor(decNumber / 2);
+    }
+    let result = '';
+    while (!stack.isEmpty()) {
+      result += stack.pop()
+    }
+    return result;
+  }
+  
+  alert(decTobin(990));
 </script>
 
 </body>
