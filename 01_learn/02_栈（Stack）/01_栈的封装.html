@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>栈的封装</title>
+</head>
+<body>
+<script>
+
+    //用数组封装栈类
+    class Stack {
+        //构造函数
+        constructor() {
+            //栈的属性
+            this.items = [];
+        }
+
+        //原型方法，栈的相关操作
+        //1.让元素进入栈
+        push(element) {
+            this.items.push(element);
+        }
+
+        //2.从栈中取出元素并返回
+        pop() {
+            return this.items.pop();
+        }
+
+        //3.查看栈最先出去的元素
+        peak() {
+            return this.items[this.items.length - 1];
+        }
+
+        //4.判断栈是否为空
+        isEmpty() {
+            return this.items.length === 0;
+        }
+
+        //5.获取栈元素个数
+        size() {
+            return this.items.length;
+        }
+
+        //6.toString()方法
+        toString() {
+            //20 10 12 8 7
+            let resultString = '';
+            for (let i = 0; i < this.items.length; i++) {
+                resultString += this.items[i] + ' '
+            }
+            return resultString;
+        }
+
+    }
+
+    //测试栈
+    let  s = new Stack();
+
+    s.push(20);
+    s.push(10);
+    s.push(12);
+    s.push(100);
+    s.push(77);
+    alert(s);
+    alert(s.items);
+
+    alert(s.pop());
+    alert(s.pop());
+    alert(s);
+
+    alert(s.peak());
+
+    alert(s.isEmpty());
+
+    alert(s.size());
+
+    alert(s.toString());
+
+</script>
+
+</body>
+</html>

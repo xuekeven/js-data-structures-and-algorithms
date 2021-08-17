@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="zn-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>判断质数</title>
+
+</head>
+
+<body>
+
+<script>
+
+    //判断质数函数
+    function isPrime(number) {
+        for (let i = 2; i < number; i++) {
+            if (number % i === 0) return false
+        }
+        return true;
+    }
+
+    //判断质数函数（高效）
+    function isPrime(num) {
+
+        const temp = Math.ceil(Math.sqrt(num));
+
+        for (let i = 2; i < temp; i++) {
+            if (num % i === 0) return false
+        }
+        return true;
+    }
+
+    //测试
+    alert(isPrime(15));
+    alert(isPrime(2));
+    alert(isPrime(37));
+
+</script>
+
+</body>
+
+</html>

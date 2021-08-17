@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="zn-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>哈希函数</title>
+
+</head>
+
+<body>
+
+<script>
+    //设计哈希函数
+    //1.将字符串转为比较大的数字
+    //2.将较大数字转为数组范围（大小）内
+    function hashFunc(str,size) {
+        //定义hashCode变量
+        let hashCode = 0;
+        //霍纳算法，来计算hashCode的值
+        for (let i = 0; i < str.length; i++) {
+            hashCode = 37 * hashCode + str.charCodeAt(i)
+        }
+        //取余操作
+        return hashCode % size;
+    }
+
+    //测试
+    alert(hashFunc('abc',7));//4
+    alert(hashFunc('cba',7));//3
+    alert(hashFunc('nba',7));//5
+    alert(hashFunc('mba',7));//1
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="zn-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>二叉搜索树的封装</title>
+
+</head>
+
+<body>
+
+<script>
+
+    class Node {
+        constructor(key) {
+            this.key = key;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    class BinarySearchTree {
+        constructor() {
+            this.root = null;
+        }
+
+        //插入数据
+        //对外暴露调用方法
+        insert(key) {
+            const newNode = new Node(key);
+
+            if (this.root === null) {
+                this.root = newNode;
+            } else {
+                this.insertNode(this.root,newNode);
+            }
+
+        }
+
+        //内部使用方法
+        insertNode(node,newNode) {
+
+            if (node.key > newNode.key) {
+
+                if(node.left === null) {
+                    node.left = newNode;
+                } else {
+                    this.insertNode(node.left,newNode);
+                }
+
+            } else {
+
+                if(node.right === null) {
+                    node.right = newNode;
+                } else {
+                    this.insertNode(node.right,newNode);
+                }
+
+            }
+        }
+
+        //先序遍历
+        //对外暴露调用方法
+        preOrderTraversal() {
+            const result = [];
+            this.preOrderTraversalNode(this.root,result);
+            return result;
+        }
+        //内部使用方法
+        preOrderTraversalNode(node,result) {
+            if (node === null) return result
+            result.push(node.key);
+            this.preOrderTraversalNode(node.left,result);
+            this.preOrderTraversalNode(node.right,result);
+        }
+
+        //中序遍历
+        //对外暴露调用方法
+        midOrderTraversal() {
+            const result = [];
+            this.midOrderTraversalNode(this.root,result);
+            return result;
+        }
+        //内部使用方法
+        midOrderTraversalNode(node,result) {
+            if (node === null) return result
+            this.midOrderTraversalNode(node.left,result);
+            result.push(node.key);
+            this.midOrderTraversalNode(node.right,result);
+        }
+
+        //后序遍历
+        //对外暴露调用方法
+        postOrderTraversal() {
+            const result = [];
+            this.postOrderTraversalNode(this.root,result);
+            return result;
+        }
+        //内部使用方法
+        postOrderTraversalNode(node,result) {
+            if (node === null) return result
+            this.postOrderTraversalNode(node.left,result);
+            this.postOrderTraversalNode(node.right,result);
+            result.push(node.key);
+        }
+
+        //层序遍历
+
+        //获取最小值
+        min() {
+            if (!this.root) return null;
+            let node = this.root;
+
+            while (node.left !== null) {
+                node = node.left;
+            }
+            return node.key;
+        }
+
+        //获取最大值
+        max() {
+            if (!this.root) return null;
+            let node = this.root;
+
+            while (node.right !== null) {
+                node = node.right;
+            }
+
+            return node.key;
+        }
+
+        //查找特定数据（递归实现）
+        //对外暴露调用方法
+        search(key) {
+            return this.searchNode(this.root,key);
+        }
+        //内部使用方法
+        searchNode(node,key) {
+            if (node === null) return false;
+
+            if (node.key === key) {
+                return true
+            } else if (node.key > key) {
+                return this.searchNode(node.left,key);
+            } else if (node.key < key) {
+                return this.searchNode(node.right,key);
+            }
+
+            return false;
+        }
+
+        //查找特定数据（循环实现）
+        search2(key) {
+
+            let node = this.root;
+
+            while (node !== null) {
+
+                if (node.key === key) {
+                    return true
+                } else if (node.key > key) {
+                    node = node.left;
+                } else if (node.key < key) {
+                    node = node.right;
+                }
+            }
+
+            return false;
+        }
+
+        //删除数据
+        remove(key) {
+
+            let currentNode = this.root,
+                parentNode = null,
+                isLeftChild = true;
+
+            //查找要删除的节点
+            while (currentNode.key !== key) {
+
+                parentNode = currentNode;
+
+                if (currentNode.key > key) {
+                    isLeftChild = true;
+                    currentNode = currentNode.left;
+                } else {
+                    isLeftChild = false;
+                    currentNode = currentNode.right;
+                }
+                //找到最后没有数据
+                if (currentNode === null) return false;
+            }
+
+            //开始删除节点
+            if (currentNode.left === null && currentNode.right === null) {   //删除的节点没有子节点
+
+                if (currentNode === this.root) {
+                    this.root = null;
+                } else if (isLeftChild) {
+                    parentNode.left = null;
+                } else {
+                    parentNode.right = null;
+                }
+                return true;
+
+            } else if (currentNode.right === null) {   //删除的节点有一个子节点
+
+                if (currentNode === this.root) {
+                    this.root = currentNode.left;
+                } else if (isLeftChild) {
+                    parentNode.left = currentNode.left;
+                } else {
+                    parentNode.right = currentNode.left;
+                }
+                return true;
+
+            } else if (currentNode.left === null) {
+
+                if (currentNode === this.root) {
+                    this.root = currentNode.right;
+                } else if (isLeftChild) {
+                    parentNode.left = currentNode.right;
+                } else {
+                    parentNode.right = currentNode.right;
+                }
+                return true;
+
+            } else {   //删除的节点有两个子节点
+
+                let successor = this.getSuccessor(currentNode);
+
+                if (currentNode === this.root) {
+                    this.root = successor;
+                } else if (isLeftChild) {
+                    parentNode.left = successor;
+                } else {
+                    parentNode.right = successor;
+                }
+                successor.left = currentNode.left;
+                return true;
+            }
+        }
+
+        //寻找后继
+        getSuccessor(delNode) {
+
+            let successor = delNode,
+                successorParent = delNode,
+                next = delNode.right;
+
+            while (next !== null) {
+                successorParent = successor;
+                successor = next;
+                next = next.left;
+            }
+
+            if (successor !== delNode.right) {
+                successorParent.left = successor.right;
+                successor.right = delNode.right;
+            }
+
+            return successor;
+        }
+
+    }
+
+    //测试
+    let bst = new BinarySearchTree();
+    bst.insert(11);
+    bst.insert(7);
+    bst.insert(15);
+    bst.insert(5);
+    bst.insert(3);
+    bst.insert(9);
+    bst.insert(8);
+    bst.insert(10);
+    bst.insert(13);
+    bst.insert(12);
+    bst.insert(14);
+    bst.insert(20);
+    bst.insert(18);
+    bst.insert(25);
+    bst.insert(6);
+
+    alert(bst.preOrderTraversal());
+
+    alert(bst.midOrderTraversal());
+
+    alert(bst.postOrderTraversal());
+
+    alert(bst.min());
+
+    alert(bst.max());
+
+    alert(bst.search(20));
+    alert(bst.search2(20));
+
+    alert(bst.search(25));
+    alert(bst.search2(25));
+
+    alert(bst.search(1));
+    alert(bst.search2(1));
+
+    alert(bst.preOrderTraversal());
+    bst.remove(9);
+    bst.remove(7);
+    bst.remove(15);
+    alert(bst.preOrderTraversal());
+
+</script>
+
+</body>
+
+</html>
