@@ -1,7 +1,7 @@
 // 2021秋招-去哪儿网校招-笔试编程题
-// 以字符串的形式读入两个较大的数字，编写一个函数计算它们的和，以字符串形式返回。
-function add(number1, number2) {
 
+// 大数相加：以字符串的形式读入两个较大的数字，编写一个函数计算它们的和，以字符串形式返回。
+function solveMeFirst1(number1, number2) {
   const longArr = [], shortArr = [];
   if (number1.length > number2.length) {
     for (const x of number1) longArr.push(x)
@@ -31,5 +31,5 @@ function add(number1, number2) {
   }
   return res;
 }
-console.log(add('589465849568', '669784652318'));
-console.log(589465849568 + 669784652318);
+
+console.log(solveMeFirst1('589465849568', '669784652318'), 589465849568 + 669784652318);
