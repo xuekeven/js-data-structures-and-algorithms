@@ -1,4 +1,4 @@
-// 2021秋招-小红书校招-笔试编程题
+// 2021秋招-小红书笔试
 
 // 1.获取 URL 中 key 对应的 value 值
 function solveMeFirst1(url, key) {
