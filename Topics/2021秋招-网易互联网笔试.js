@@ -39,4 +39,3 @@ function judge(num) {
   }
   return false
 }
-

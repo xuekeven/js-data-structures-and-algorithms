@@ -2,13 +2,13 @@
 
 // 大数相加：以字符串的形式读入两个较大的数字，编写一个函数计算它们的和，以字符串形式返回。
 function solveMeFirst1(number1, number2) {
-  const longArr = [], shortArr = [];
+  let longArr, shortArr;
   if (number1.length > number2.length) {
-    for (const x of number1) longArr.push(x)
-    for (const y of number2) shortArr.push(y)
+    longArr = Array.from(number1);
+    shortArr = Array.from(number2);
   } else {
-    for (const x of number1) shortArr.push(x)
-    for (const y of number2) longArr.push(y)
+    longArr = Array.from(number2);
+    shortArr = Array.from(number1);
   }
 
   const max = longArr.length, min = shortArr.length;

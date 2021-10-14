@@ -1,4 +1,5 @@
 // 排列
+
 function queue(arr, size) {
   if (size > arr.length) return;
   const allResult = [];
@@ -21,6 +22,7 @@ console.log(queue([1, 2, 3], 3)); // A(3, 3) = 3! = 6
 console.log(queue([1, 2, 3, 4], 3)); // A(4, 3) = 4! / 1! = 24
 
 // 组合
+
 function choose(arr, size) {
   const allResult = [];
 
