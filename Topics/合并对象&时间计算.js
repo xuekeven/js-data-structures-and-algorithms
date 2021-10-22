@@ -21,8 +21,6 @@ console.log(arr)
 console.log(JSON.parse(JSON.stringify(obj1)), JSON.parse(JSON.stringify(obj2)))
 console.log(key1, val1, key2, val2)
 
-
-
 // 2.时间计算：写一个函数接收语义化的描述，得到计算后的日期时间。
 // PS: （暂不考虑【月】【年】的计算）
 // +/-3W 加或减3周，+/-3d 加或减3天，+/-3h 加或减3小时

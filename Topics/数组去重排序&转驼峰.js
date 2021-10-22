@@ -21,8 +21,7 @@ function change(str) {
     const ret = arr.splice(index, 2);
     arr.splice(index, 0, ret[1].toUpperCase());
   }
-  const res = arr.toString().replaceAll(',','');
-  return res;
+  return arr.join('');
 }
 change('aaa-bbb-ccc-ddd'); // 'aaaBbbCccDdd'
 

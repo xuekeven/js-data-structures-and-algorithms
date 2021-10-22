@@ -9,7 +9,6 @@ class Node {
 
 }
 
-
 // 封装二叉搜索树（特点：左子树节点值 < 根节点，右子树节点值 > 根节点）
 export class BinarySearchTree {
 
@@ -179,7 +178,6 @@ export class BinarySearchTree {
 
     }
 
-
     // 1、删除的是叶子节点的情况
     if (currentNode.left === null && currentNode.right === null) {
 
@@ -190,7 +188,6 @@ export class BinarySearchTree {
       } else {
         parentNode.right = null;
       }
-
 
       // 2、删除的是只有一个子节点的节点
     } else if (currentNode.right === null) { // currentNode 只存在左节点
@@ -220,7 +217,6 @@ export class BinarySearchTree {
       } else {
         parentNode.right = currentNode.right;
       }
-
 
       // 3、删除的是有两个子节点的节点
     } else {
@@ -264,6 +260,5 @@ export class BinarySearchTree {
     }
     return successor;
   }
-
 
 }
