@@ -1,6 +1,13 @@
-// 2021秋招-京东笔试
+// 判断数据类型
+function type(obj) {
+  if (Number.isNaN(obj)) return 'NaN';
+  if (Array.isArray(obj)) return 'Array';
+  if (obj === null) return 'Null';
+  let res = typeof obj;
+  return res === 'object' ? Object.prototype.toString.call(obj).replace('[object ', '').replace(']', '') : res.replace(res[0], res[0].toUpperCase());
+}
 
-// 2.直线任务：小明在一条直线上执行任务，需要在坐标0的位置和坐标a的位置之间需要从0移动到a，
+// 直线任务：小明在一条直线上执行任务，需要在坐标0的位置和坐标a的位置之间需要从0移动到a，
 // 每移动1个单位坐标，小明携带的仪器需要耗费对应1个单位的能量。
 // 携带的仪器最多可装b个单位能量，初始时仪器是满能量。坐标0和a之间有一处坐标f的位置
 // 可以给仪器充能。现在小明从0移动至a或者从a移动至0都算一次行动。

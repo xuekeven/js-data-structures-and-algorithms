@@ -14,6 +14,32 @@ sortWith([5, 4, 9, 4, 1, 55, 2]); // [1, 2, 4, 5, 9, 55]
 
 // 转驼峰
 function change(str) {
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '-') {
+      // 字符串的方法在操作字符串时都不会改变原字符串
+      str = str.replace(str[i],'');
+      str = str.replace(str[i], str[i].toUpperCase());
+    }
+  }
+  return str
+}
+
+change('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
+
+function change1(str) {
+  let res = '';
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== '-') res += str[i];
+    else {
+      res += str[i + 1].toUpperCase();
+      i++;
+    } 
+  }
+  return res
+}
+change1('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
+
+function change2(str) {
   const arr = Array.from(str);
   while (true) {
     const index = arr.indexOf('-');
@@ -23,7 +49,7 @@ function change(str) {
   }
   return arr.join('');
 }
-change('aaa-bbb-ccc-ddd'); // 'aaaBbbCccDdd'
+change2('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
 
 // 九九乘法口诀表
 function print99() {
