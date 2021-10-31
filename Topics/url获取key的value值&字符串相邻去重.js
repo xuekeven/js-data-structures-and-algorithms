@@ -2,9 +2,9 @@
 
 // 1.url 获取 key 的 value 值
 function solveMeFirst1(url, key) {
-	let s = '&';
-	if (!url.includes('&')) s = '?';
-	const arr = url.split(s);
+	let search = '&';
+	if (!url.includes(search)) search = '?';
+	const arr = url.split(search);
 	for (let i = 0; i < arr.length; i++) {
 		if (arr[i].includes(key)) {
 			const index = arr[i].indexOf(key) + key.length + 1;
@@ -14,18 +14,18 @@ function solveMeFirst1(url, key) {
 	return false
 }
 
-console.log(solveMeFirst1('https://m.xiaohongshu.com?key=888','key')); // 888
-console.log(solveMeFirst1('https://m.xiaohongshu.com?name=95919&key=888','key')); // 888
-console.log(solveMeFirst1('https://m.xiaohongshu.com?name=95919&key=888','name')); // 95919
+console.log(solveMeFirst1('https://xiaohongshu.com?ans=984', 'ans')); // 984
+console.log(solveMeFirst1('https://xiaohongshu.com?name=619&key=88&ans=984', 'kkk')); // false
+console.log(solveMeFirst1('https://xiaohongshu.com?name=619&key=88&ans=984', 'name')); // 619
 
-// 3.字符串相邻去重
-function solveMeFirst3(str) {
-	const arr = Array.from(str);
-	let res = arr[0].toString();
-	for (let x = 1; x < arr.length; x++) {
-		if (arr[x] !== arr[x - 1]) res = res + arr[x]
+// 2.字符串相邻去重
+function solveMeFirst2(str) {
+	let res = '';
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] !== str[i + 1]) res += str[i]
 	}
 	return res;
 }
 
-console.log(solveMeFirst3('AAAABBBCCDAABBB'));
+console.log(solveMeFirst3('AAAABBBCCCDDDAABBB')); // ABCDAB
+console.log(solveMeFirst3('fewwffffwerreroao')); // fewfwereroao

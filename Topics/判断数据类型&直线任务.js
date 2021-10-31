@@ -7,6 +7,12 @@ function type(obj) {
   return res === 'object' ? Object.prototype.toString.call(obj).replace('[object ', '').replace(']', '') : res.replace(res[0], res[0].toUpperCase());
 }
 
+console.log(type(123));      // Number
+console.log(type('123'));    // String
+console.log(type(false));    // Boolean
+console.log(type(['123']));  // Array
+console.log(type(null));     // Null
+
 // 直线任务：小明在一条直线上执行任务，需要在坐标0的位置和坐标a的位置之间需要从0移动到a，
 // 每移动1个单位坐标，小明携带的仪器需要耗费对应1个单位的能量。
 // 携带的仪器最多可装b个单位能量，初始时仪器是满能量。坐标0和a之间有一处坐标f的位置

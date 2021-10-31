@@ -10,6 +10,7 @@ function sortWith(arr) {
   })
   return arr;
 }
+
 sortWith([5, 4, 9, 4, 1, 55, 2]); // [1, 2, 4, 5, 9, 55]
 
 // 转驼峰
@@ -17,11 +18,11 @@ function change(str) {
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '-') {
       // 字符串的方法在操作字符串时都不会改变原字符串
-      str = str.replace(str[i],'');
+      str = str.replace(str[i], '');
       str = str.replace(str[i], str[i].toUpperCase());
     }
   }
-  return str
+  return str;
 }
 
 change('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
@@ -35,8 +36,9 @@ function change1(str) {
       i++;
     } 
   }
-  return res
+  return res;
 }
+
 change1('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
 
 function change2(str) {
@@ -49,6 +51,7 @@ function change2(str) {
   }
   return arr.join('');
 }
+
 change2('a-bcd-ef-gh-i'); // 'aBcdEfGhI'
 
 // 九九乘法口诀表
@@ -62,4 +65,5 @@ function print99() {
     console.log(...resArr);
   }
 }
+
 print99();

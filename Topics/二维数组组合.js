@@ -2,34 +2,37 @@
 
 // 2.二维数组组合：输入：[['red', 'green'], ['a1', 'a2'], ['b1', 'b2']]
 // 编写一个函数，要求输出：['red-a1-b1', 'red-a1-b2', 'red-a2-b1', 'red-a2-b2', 
-//  'green-a1-b1', 'green-a1-b2','green-a2-b1','green-a2-b2']
+// 'green-a1-b1', 'green-a1-b2','green-a2-b1','green-a2-b2']
 
 const arr = [['red', 'green'], ['a1', 'a2'], ['b1', 'b2']];
 
 // 方法一：
+function create(arr) {return arr.reduce((a, b) => a.map(aItem => b.map(bItem => aItem + '-' + bItem)).reduce((a, b) => [...a, ...b]))}
+
 function create(arr) {
   let res = arr.reduce(
     (a, b) => a.map(aItem => b.map(bItem => aItem + '-' + bItem)).reduce((a, b) => [...a, ...b])
   );
   return res
 }
+
 function create(arr) {
   let res;
   res = arr.reduce(function (a, b) {
     let res = a.map(function (aItem) {
       let res = b.map(function (bItem) {
         console.log(aItem + '-' + bItem)
-        return aItem + '-' + bItem
+        return aItem + '-' + bItem;
       })
-      return res
+      return res;
     })
     console.log(res)
     res = res.reduce(function (a, b) {
-      return [...a, ...b]
+      return [...a, ...b];
     })
-    return res
+    return res;
   })
-  return res
+  return res;
 }
 
 // 方法二：

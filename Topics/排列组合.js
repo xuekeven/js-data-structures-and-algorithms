@@ -18,6 +18,7 @@ function queue(arr, size) {
 
   return allResult;
 }
+
 console.log(queue([1, 2, 3], 3)); // A(3, 3) = 3! = 6
 console.log(queue([1, 2, 3, 4], 3)); // A(4, 3) = 4! / 1! = 24
 
@@ -46,4 +47,5 @@ function choose(arr, size) {
 
   return allResult;
 }
+
 console.log(choose([1, 2, 3, 4, 5], 3)); // C(5,3) = A(5,3) / A(3,3) = 10
