@@ -1,12 +1,14 @@
 // 2021秋招-富途一面
 
-// 2.二维数组组合：输入：[['red', 'green'], ['a1', 'a2'], ['b1', 'b2']]
+// 二维数组组合：输入：[['red', 'green'], ['a1', 'a2'], ['b1', 'b2']]
 // 编写一个函数，要求输出：['red-a1-b1', 'red-a1-b2', 'red-a2-b1', 'red-a2-b2', 
 // 'green-a1-b1', 'green-a1-b2','green-a2-b1','green-a2-b2']
 
 const arr = [['red', 'green'], ['a1', 'a2'], ['b1', 'b2']];
 
 // 方法一：
+const create = arr => arr.reduce((a, b) => a.map(aItem => b.map(bItem => aItem + '-' + bItem)).reduce((a, b) => [...a, ...b]))
+
 function create(arr) {return arr.reduce((a, b) => a.map(aItem => b.map(bItem => aItem + '-' + bItem)).reduce((a, b) => [...a, ...b]))}
 
 function create(arr) {
